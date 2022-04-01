@@ -1,0 +1,68 @@
+Problem:    zad1a
+Rows:       19
+Columns:    17
+Non-zeros:  59
+Status:     OPTIMAL
+Objective:  max_time = 41 (MINimum)
+
+   No.   Row name   St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 max_time     B             41                             
+     2 c1[A]        NS            14            14             =           0.5 
+     3 c1[B]        NS            12            12             =           0.5 
+     4 c1[C]        NS             5             5             =           0.5 
+     5 c1[D]        NS            12            12             =           0.5 
+     6 c1[E]        NS            14            14             =           0.5 
+     7 c1[F]        NS            10            10             =           0.5 
+     8 c1[G]        NS             8             8             =           0.5 
+     9 c1[H]        NS             7             7             =           0.5 
+    10 c2[1]        NU             0                          -0          -0.5 
+    11 c2[2]        NU             0                          -0          -0.5 
+    12 c3[A]        B            -27                          -0 
+    13 c3[B]        B            -29                          -0 
+    14 c3[C]        B            -36                          -0 
+    15 c3[D]        B            -29                          -0 
+    16 c3[E]        B            -27                          -0 
+    17 c3[F]        B            -31                          -0 
+    18 c3[G]        B            -33                          -0 
+    19 c3[H]        B            -34                          -0 
+
+   No. Column name  St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 x[1,A]       B             14             0               
+     2 x[2,A]       NL             0             0                       < eps
+     3 x[1,B]       B             12             0               
+     4 x[2,B]       NL             0             0                       < eps
+     5 x[1,C]       B              5             0               
+     6 x[2,C]       NL             0             0                       < eps
+     7 x[1,D]       B             10             0               
+     8 x[2,D]       B              2             0               
+     9 x[1,E]       NL             0             0                       < eps
+    10 x[2,E]       B             14             0               
+    11 x[1,F]       NL             0             0                       < eps
+    12 x[2,F]       B             10             0               
+    13 x[1,G]       NL             0             0                       < eps
+    14 x[2,G]       B              8             0               
+    15 x[1,H]       NL             0             0                       < eps
+    16 x[2,H]       B              7             0               
+    17 Cmax         B             41             0               
+
+Karush-Kuhn-Tucker optimality conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.DE: max.abs.err = 0.00e+00 on column 0
+        max.rel.err = 0.00e+00 on column 0
+        High quality
+
+KKT.DB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
