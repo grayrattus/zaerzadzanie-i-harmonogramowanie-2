@@ -16,16 +16,16 @@ solve;
 display x;
 
 data; 
-set  L  :=  1,2;
-set  T  :=  A,B,C,D,E,F,G,H;
-param  p  :=
-A  14
-B  12
-C  5
-D  12
-E  14
-F  10
-G  8
-H  7;
+set L :=  1,2;
+set T :=  A,B,C,D,E,F,G,H;
+param p  :=
+A 14
+B 12
+C 5
+D 12
+E 14
+F 10
+G 8
+H 7;
 
 end;

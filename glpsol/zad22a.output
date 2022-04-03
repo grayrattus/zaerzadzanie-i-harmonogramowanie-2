@@ -1,0 +1,52 @@
+Problem:    zad22a
+Rows:       11
+Columns:    17 (16 integer, 16 binary)
+Non-zeros:  35
+Status:     INTEGER OPTIMAL
+Objective:  max_time = 40 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 max_time                   40                             
+     2 c1[1]                       0                          -0 
+     3 c1[2]                      -5                          -0 
+     4 c2[A]                       1             1             = 
+     5 c2[B]                       1             1             = 
+     6 c2[C]                       1             1             = 
+     7 c2[D]                       1             1             = 
+     8 c2[E]                       1             1             = 
+     9 c2[F]                       1             1             = 
+    10 c2[G]                       1             1             = 
+    11 c2[H]                       1             1             = 
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 x[1,A]       *              0             0             1 
+     2 x[1,B]       *              1             0             1 
+     3 x[1,C]       *              1             0             1 
+     4 x[1,D]       *              0             0             1 
+     5 x[1,E]       *              0             0             1 
+     6 x[1,F]       *              1             0             1 
+     7 x[1,G]       *              0             0             1 
+     8 x[1,H]       *              1             0             1 
+     9 x[2,A]       *              1             0             1 
+    10 x[2,B]       *              0             0             1 
+    11 x[2,C]       *              0             0             1 
+    12 x[2,D]       *              1             0             1 
+    13 x[2,E]       *              1             0             1 
+    14 x[2,F]       *              0             0             1 
+    15 x[2,G]       *              1             0             1 
+    16 x[2,H]       *              0             0             1 
+    17 Cmax                       40             0               
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
