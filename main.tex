@@ -32,6 +32,7 @@
 \usepackage{float}
 
 \usepackage[utf8]{inputenc}
+\usepackage[table]{xcolor}
 \usepackage{amsthm}
 \usepackage{enumitem}
 \usepackage[english, polish]{babel}
@@ -390,7 +391,243 @@ Znaleziony przez solver czas to $40$ jednostek. Poniżej przedstawiam znaleziony
 Odpowiedź \ref{22b}
 \par\noindent\rule{\textwidth}{0.4pt}
 
+W zadaniu tym minimalizujemy sumy $F_j$ tzn. czasy przebywania $j$ tego zadania w systemie. W wykładzie 
+$F_j = C_j - r_j$ gdzie $r_j$ - chwila gotowości zadania do obslugi, $C_j$ - chwila ukończenia zadania.
 
+Problem ten można zamodelować poprzez użycie reguły SPT (agn. Shortest Processing Time). Pozwala on na uszeregowania zadań według rosnących czasów $p_j$. Dla takiego uszeregowanego zbioru zadań wartość funkcji celu $\sum{}F_j$ można zilustrować jako pole pod wykresem. Przez to, że zadania te są uszeregowane zadania najkrótsze wykonywane są jako pierwsze a to powoduje, że cel minimalizacji czasu przebywania w systemie jest osiągnięty.
+
+Całość można przedstawić jako model matematyczny.
+
+\noindent Model matematyczny: \\\\
+
+\noindent Identyfikacja zbiorów:
+
+$T_j$ - zadania do wykonania $j = {A,B,C,D,E,F,G,H}$
+
+$L_{l}$ - procesor na którym wykonywane są zadania $l = {1,2}$
+
+\noindent Parametry modelu:
+
+$p_{lj}$ - czas przetwarzania zadania $j$ na maszynie $l$ gdzie $j = {A,B,C,D,E,F,G,H}$, $l = {1,2}$
+
+$o_k$  - określa kolejność zadań $k = {1,2,3,4,5,6,7,8}$
+
+\noindent Zmienne decyzyjne:
+
+$x_{ljk}$ - czas w jakim zadanie $j$ jest przetwarzane na mszynie $l$ gdzie $j = {A,B,C,D,E,F,G,H}$, $l = {1,2}$ , $k = {1,2,3,4,5,6,7,8}$
+$C_{max}$ - zmienna określająca czas zakończenia wszystkich zadań
+
+\noindent Funkcja celu:
+
+$min \sum^{m}_{j=1}\sum^{l}_{k=1} k p_{lj} x_{ljk} = 1$ 
+
+\noindent Ograniczenia:
+
+Ograniczenia przpisane z podręcznika.
+
+$\sum^{j}_{l=1} \sum^{l}_{k=1} x_{ljk} = 1$
+
+$\sum^{l}_{j=1} x_{ljk} <= 1$
+
+$x_{ljk} \in {0,1}$
+
+
+\lstinputlisting[
+language=AMPL,
+numbers=left,
+firstnumber=1,
+caption={Kod solvera zad22b.mod},
+aboveskip=10pt,
+]
+{glpsol/zad22b.mod}
+
+\lstinputlisting[
+language=AMPL,
+numbers=left,
+firstnumber=1,
+caption={Kod wynikowy solvera zad22b.mod},
+aboveskip=10pt,
+]
+{glpsol/zad22b.output}
+
+Kolejność zadani wygenerowanych przez solver to kolejno dla procesora
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| c | c | c | c | c |}
+		Procesor 1 & C & H & F & B \\
+		Procesor 2 & G & D & A & E \\
+	\end{tabular}
+\end{table}
+
+
+\begin{figure}[h]    
+  \centering 
+  \includegraphics[width=\linewidth]{others/zad22b_harmonogram.png}
+  \caption{Harmonogram dla zad22b}
+\end{figure}
+
+\par\noindent\rule{\textwidth}{0.4pt}
+Odpowiedź \ref{22c}                  
+\par\noindent\rule{\textwidth}{0.4pt}
+
+\section{Aukcje}
+Na aukcji zostało wystawionych n jednakowych przedmiotów. Oferty uczest-
+ników zostaną podane razem z pozostałymi danymi.
+
+\begin{enumerate}
+	\item \label{4a} wyznacz rozwiązanie aukcji niejawnej pierwszej ceny,
+	\item \label{4b} wyznacz rozwiązania aukcji Vicrey'a,
+	\item \label{4c} wyznacz rozwiązanie niejawnej aukcji jednolitej ceny (ceny pierwszej
+		odrzuconej oferty)
+	\item \label{4d} wyznacz rozwiązanie aukcji niejawnej pierwszej ceny, jesli wystawiający mogą poznać złożone oferty i zmniejszyć liczbę wystawianych przedmiotów, w celu zwiększenia przychodu,
+	\item \label{4e} wyznacz rozwiązania aukcji Vicrey’a, jesli wystawiający może poznać
+		złożone oferty i zmniejszyć liczbę wystawianych przedmiotów, w celu
+		zwiększenia przychodu,
+	\item \label{4f} wyznacz rozwiązanie niejawnej aukcji jednolitej ceny (ceny pierwszej
+		odrzuconej oferty), jesli wystawiający może poznać złożone oferty i
+		zmniejszyć liczbę wystawianych przedmiotów, w celu zwiększenia przy-
+		chodu
+\end{enumerate}
+
+\subsection{Aukcje}
+Liczba przedmiotów \(n = 3\) \\
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| c | c |}
+		\hline
+		Uczestnik & Kolejne ceny \\
+		\hline
+		A         & 22, 8, 6     \\
+		B         & 18, 7, 4     \\
+		C         & 20, 9, 5     \\
+		\hline
+	\end{tabular}
+	\caption{Oferty}
+\end{table}
+
+\par\noindent\rule{\textwidth}{0.4pt}
+Odpowiedź \ref{4a}                  
+\par\noindent\rule{\textwidth}{0.4pt}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| >{\columncolor{green}} c | >{\columncolor{green}}c | >{\columncolor{green}} c |  c |  c |  c |  c |  c |  c |  }
+		\hline
+		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
+		\hline
+		A  & C  & B  & C & A & B & A & C & B \\
+		\hline
+	\end{tabular}
+	\caption{4aNajwyzszeOferty}
+\end{table}
+
+W tym przypadku wyniki aukcji wyglądają następująco:
+
+
+Sytuacja gdy wszyscy dają najwyższe oferty
+\begin{itemize}
+	\item A - 22 \$
+	\item C - 20 \$
+	\item B - 18 \$
+\end{itemize}
+
+W przypadku najniższych ofert
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|  c | c |  c |  c |  c |  c | >{\columncolor{green}} c | >{\columncolor{green}} c |  >{\columncolor{green}} c |  }
+		\hline
+		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
+		\hline
+		A  & C  & B  & C & A & B & A & C & B \\
+		\hline
+	\end{tabular}
+	\caption{Wybrane oferty}
+\end{table}
+
+\begin{itemize}
+	\item A - 6 \$
+	\item C - 5 \$
+	\item B - 4 \$
+\end{itemize}
+
+\par\noindent\rule{\textwidth}{0.4pt}
+Odpowiedź \ref{4b}                  
+\par\noindent\rule{\textwidth}{0.4pt}
+
+Jako, że mamy 3 przedmioty to zwyciężają 3 najlepsze oferty
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| >{\columncolor{green}} c | >{\columncolor{green}}c | >{\columncolor{green}} c |  c |  c |  c |  c |  c |  c |  }
+		\hline
+		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
+		\hline
+		A  & C  & B  & C & A & B & A & C & B \\
+		\hline
+	\end{tabular}
+	\caption{Wybrane oferty dla aukcji Virce'a}
+\end{table}
+
+Następnie obliczam ile każdy z uczestników zapłaci:
+
+\noindent
+Wartość aukcji: $22 + 20 + 18 = 60$ \\
+
+\noindent
+Gdyby nie uczestnik A zostałyby wybrane oferty: $20 + 18 + 9 = 47$ a jego wkład wynosi $60 - 47 = 13 $ \\
+Gdyby nie uczestnik B zostałyby wybrane oferty: $22 + 20 + 9 = 51$ a jego wkład wynosi $60 - 51 = 9$ \\
+Gdyby nie uczestnik C zostałyby wybrane oferty: $22 + 18 + 8 = 48$ a jego wkład wynosi $60 - 48 = 12$ \\
+
+\noindent
+W związku z tym uczesnik A powinien zapłacić: $22 - 13 = 9$ \\
+W związku z tym uczesnik B powinien zapłacić: $22 - 9 = 13$ \\
+W związku z tym uczesnik C powinien zapłacić: $22 - 12 = 10$
+
+\par\noindent\rule{\textwidth}{0.4pt}
+Odpowiedź \ref{4c}                  
+\par\noindent\rule{\textwidth}{0.4pt}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| >{\columncolor{orange}} c | >{\columncolor{orange}}c | >{\columncolor{orange}} c | >{\columncolor{green}} c |  c |  c |  c |  c |  c |  }
+		\hline
+		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
+		\hline
+		A  & C  & B  & C & A & B & A & C & B \\
+		\hline
+	\end{tabular}
+	\caption{Wybrane oferty dla jednolitej ceny}
+\end{table}
+
+Wszyscy płacą po 9 \$ ponieważ jest to najwyższa odrzucona oferta.
+
+\par\noindent\rule{\textwidth}{0.4pt}
+Odpowiedź \ref{4d}                  
+\par\noindent\rule{\textwidth}{0.4pt}
+
+Nie do końca rozumiem jak w przypadku aukcji niejawnej pierwszej ceny zmniejszenie ilości przedmiotów mogłoby wpłynąć na zwiększenie zysków. Wygranie aukcji zależy od najwyższej oferty więc zmniejszanie ilości przedmiotów do 2 i 1 nie spowoduje zwiększenia przychodu.
+
+Np. jeżeli zostanie wystawiony jeden przedmiot to wygrana oferta będzie $A = 22$. Dla dwóch przedmiotów $A = 22$ oraz $C = 20$.
+
+\par\noindent\rule{\textwidth}{0.4pt}
+Odpowiedź \ref{4e}                  
+\par\noindent\rule{\textwidth}{0.4pt}
+
+Dla dwóch przedmiotów aukcja wyglądałąby następująco.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| >{\columncolor{orange}} c | >{\columncolor{orange}}c | >{\columncolor{orange}} c | >{\columncolor{green}} c |  c |  c |  c |  c |  c |  }
+		\hline
+		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
+		\hline
+		A  & C  & B  & C & A & B & A & C & B \\
+		\hline
+	\end{tabular}
+	\caption{Wybrane oferty dla jednolitej ceny}
+\end{table}
 
 \printbibliography
 \end{document}
