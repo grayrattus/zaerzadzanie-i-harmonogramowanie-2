@@ -98,11 +98,11 @@ $min C_{max}$ - maksymalny czas zakończenia
 
 \noindent Ograniczenia:
 
-$\sum^{j}_{l = 1} x_{jl} = p_j$ - każde zadania jest musi trwać przez podany czas 
+$\sum^{m}_{l = 1} x_{jl} = p_j$ - każde zadania jest musi trwać przez podany czas 
 
-$\sum^{l}_{j = 1} x_{jl} <= C_{max}$ - każda maszyna może pracować przez najwyżej $C_{max}$
+$\sum^{n}_{j = 1} x_{jl} <= C_{max}$ - każda maszyna może pracować przez najwyżej $C_{max}$
 
-$\sum^{j}_{l = 1} x_{jl} <= C_{max}$ - wartość $C_{max}$ jest najwyższa ze wszystkich czasów przetwarzania $p_j$
+$\sum^{n}_{l = 1} x_{jl} <= C_{max}$ - wartość $C_{max}$ jest najwyższa ze wszystkich czasów przetwarzania $p_j$
 
 \lstinputlisting[
 language=AMPL,
@@ -177,9 +177,9 @@ $min C_{max}$ - maksymalny czas zakończenia
 
 \noindent Ograniczenia:
 
-$\sum^{l}_{j = 1} x_{jl} * p_j <= C_{max}$ - każda maszyna może pracować przez najwyżej $C_{max}$
+$\sum^{n}_{j = 1} x_{jl} * p_j <= C_{max}$ - każda maszyna może pracować przez najwyżej $C_{max}$
 
-$\sum^{j}_{l = 1} x_{jl} = 1$
+$\sum^{m}_{l = 1} x_{jl} = 1$
 
 $x_{jl} \in {0,1}$
 
@@ -283,11 +283,11 @@ $min C_{max}$ - minimalny czas zakończenia
 
 Ograniczenia przpisane z ksiązki \cite{scheduling}.
 
-$\sum^{l}_{j = 1} \frac{x_{lj}}{p_{lj}} = 1$ - każda operacja musi być w pełni wykonana
+$\sum^{n}_{j = 1} \frac{x_{lj}}{p_{lj}} = 1$ - każda operacja musi być w pełni wykonana
 
-$\sum^{j}_{l = 1} x_{lj} <= C_{max}$  - czas pracy zadania na wszystkich maszynach
+$\sum^{m}_{l = 1} x_{lj} <= C_{max}$  - czas pracy zadania na wszystkich maszynach
 
-$\sum^{l}_{j = 1} x_{lj} <= C_{max}$  - maksymalny czas pracy mszyny dla wszystkich zadań
+$\sum^{n}_{j = 1} x_{lj} <= C_{max}$  - maksymalny czas pracy mszyny dla wszystkich zadań
 
 \lstinputlisting[
 language=AMPL,
@@ -355,9 +355,9 @@ $min C_{max}$ - minimalny czas zakończenia
 
 Ograniczenia przpisane z podręcznika.
 
-$\sum^{l}_{j = 1} p_{lj}*x{lj} <= C_{max}$
+$\sum^{n}_{j = 1} p_{lj}*x{lj} <= C_{max}$
 
-$\sum^{j}_{l = 1} x_{lj} = 1$
+$\sum^{m}_{l = 1} x_{lj} = 1$
 
 $x_{lj} \in {0,1}$
 
@@ -419,15 +419,15 @@ $C_{max}$ - zmienna określająca czas zakończenia wszystkich zadań
 
 \noindent Funkcja celu:
 
-$min \sum^{m}_{j=1}\sum^{l}_{k=1} k p_{lj} x_{ljk} = 1$ 
+$min \sum^{m}_{l=1}\sum^{n}_{j=1}\sum^{n}_{k=1} k p_{lj} x_{ljk} = 1$ 
 
 \noindent Ograniczenia:
 
 Ograniczenia przpisane z podręcznika.
 
-$\sum^{j}_{l=1} \sum^{l}_{k=1} x_{ljk} = 1$
+$\sum^{m}_{l=1} \sum^{n}_{k=1} x_{ljk} = 1$
 
-$\sum^{l}_{j=1} x_{ljk} <= 1$
+$\sum^{n}_{j=1} x_{ljk} <= 1$
 
 $x_{ljk} \in {0,1}$
 
@@ -470,6 +470,40 @@ Kolejność zadani wygenerowanych przez solver to kolejno dla procesora
 \par\noindent\rule{\textwidth}{0.4pt}
 Odpowiedź \ref{22c}                  
 \par\noindent\rule{\textwidth}{0.4pt}
+
+W tym przypadku minimalizujemy $S_j$ czyli czas oczekiwania na obsługę. Algorytm, który znajdzie rozwiązanie jest w zasadzie taki sam z wyjątkiem funkcji celu gdzie zamiast $k$ używa się $k - 1$.
+
+\lstinputlisting[
+language=AMPL,
+numbers=left,
+firstnumber=1,
+caption={Kod solvera zad22c.mod},
+aboveskip=10pt,
+]
+{glpsol/zad22c.mod}
+
+\lstinputlisting[
+language=AMPL,
+numbers=left,
+firstnumber=1,
+caption={Kod wynikowy solvera zad22c.mod},
+aboveskip=10pt,
+]
+{glpsol/zad22c.output}
+
+Kolejność zadani wygenerowanych przez solver to kolejno dla procesora
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| c | c | c | c | c |}
+		Procesor 1 & C & H & F & B \\
+		Procesor 2 & G & D & A & E \\
+	\end{tabular}
+\end{table}
+
+\section{Modernizacja oświetlenia}
+
+\section{Planowanie produkcji realizowanej w porcjach}
 
 \section{Aukcje}
 Na aukcji zostało wystawionych n jednakowych przedmiotów. Oferty uczest-
@@ -525,14 +559,14 @@ Odpowiedź \ref{4a}
 W tym przypadku wyniki aukcji wyglądają następująco:
 
 
-Sytuacja gdy wszyscy dają najwyższe oferty
+Sytuacja gdy wszyscy dają najwyższe oferty powoduje, że sprzedawca zarabia 60 \$.
 \begin{itemize}
 	\item A - 22 \$
 	\item C - 20 \$
 	\item B - 18 \$
 \end{itemize}
 
-W przypadku najniższych ofert
+W przypadku najniższych ofert sprzedawca zarobi 15 \$.
 
 \begin{table}[H]
 	\centering
@@ -585,6 +619,8 @@ W związku z tym uczesnik A powinien zapłacić: $22 - 13 = 9$ \\
 W związku z tym uczesnik B powinien zapłacić: $22 - 9 = 13$ \\
 W związku z tym uczesnik C powinien zapłacić: $22 - 12 = 10$
 
+Po zakończeniu aukcji sprzedawca zarobił 32 \$.
+
 \par\noindent\rule{\textwidth}{0.4pt}
 Odpowiedź \ref{4c}                  
 \par\noindent\rule{\textwidth}{0.4pt}
@@ -619,15 +655,69 @@ Dla dwóch przedmiotów aukcja wyglądałąby następująco.
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{| >{\columncolor{orange}} c | >{\columncolor{orange}}c | >{\columncolor{orange}} c | >{\columncolor{green}} c |  c |  c |  c |  c |  c |  }
+	\begin{tabular}{| >{\columncolor{orange}} c | >{\columncolor{orange}}c | >{\columncolor{green}} c |  c |  c |  c |  c |  c |  c |  }
 		\hline
 		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
 		\hline
 		A  & C  & B  & C & A & B & A & C & B \\
 		\hline
 	\end{tabular}
-	\caption{Wybrane oferty dla jednolitej ceny}
+	\caption{Wybrane oferty dla aukcji Vicrey-a 2 przedmiotów}
 \end{table}
+
+W tej sytuacji A oraz C płacą po 18 ponieważ jest to pierwsza odrzucona oferta. Sprzedawca zarabia 36 \$.
+
+Dla jednego przedmiotu aukcja wyglądałąby następująco.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| >{\columncolor{orange}} c | >{\columncolor{green}}c | c |  c |  c |  c |  c |  c |  c |  }
+		\hline
+		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
+		\hline
+		A  & C  & B  & C & A & B & A & C & B \\
+		\hline
+	\end{tabular}
+	\caption{Wybrane oferty dla aukcji Vicrey-a 1 przedmiotu}
+\end{table}
+
+W tej sytuacji uczestnik A płaci 20\$ ponieważ jest to pierwsza odrzucona oferta. Osoba sprzedająca zarobiła w ten sposób 20\$ co jest lepszą ofertą od sprzedania 2 przedmiotów gdzie zarobił 18\$. W tej sytuacji również posiada jeszcze 2 przedmioty do sprzedania.
+
+\par\noindent\rule{\textwidth}{0.4pt}
+Odpowiedź \ref{4f}                  
+\par\noindent\rule{\textwidth}{0.4pt}
+
+Dla jednego przedmiotu
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| >{\columncolor{orange}} c | >{\columncolor{green}}c | c |  c |  c |  c |  c |  c |  c |  }
+		\hline
+		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
+		\hline
+		A  & C  & B  & C & A & B & A & C & B \\
+		\hline
+	\end{tabular}
+	\caption{Wybrane oferty dla aukcji jednolitej ceny dla 1 przedmiotu}
+\end{table}
+
+W tym przypadku wystawca zarobi 20 \$ ponieważ jest to pierwsza odrzucona oferta.
+
+Dla dwóch przedmiotów
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{| >{\columncolor{orange}} c | >{\columncolor{orange}}c | >{\columncolor{green}}c |  c |  c |  c |  c |  c |  c |  }
+		\hline
+		22 & 20 & 18 & 9 & 8 & 7 & 6 & 5 & 4 \\
+		\hline
+		A  & C  & B  & C & A & B & A & C & B \\
+		\hline
+	\end{tabular}
+	\caption{Wybrane oferty dla aukcji jednolitej ceny dla 2 przedmiotów}
+\end{table}
+
+W tym przypadku osoba A oraz C płacą 18 \$ a sprzedawca zarabia 36 \$.
 
 \printbibliography
 \end{document}

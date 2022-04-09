@@ -9,7 +9,7 @@ minimize f:
   sum {l in L}
   sum {j in T}
   sum {k in O}
-  p[j, l] * x[l,j,k] * k - 1;
+  p[j, l] * x[l,j,k] * (k - 1);
 
 subject to c1 {j in T}:
   sum {l in L}
